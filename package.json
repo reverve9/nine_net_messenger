@@ -1,0 +1,58 @@
+{
+  "name": "nine-net-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "electron:dev": "NODE_ENV=development electron .",
+    "electron:build": "next build && electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.ninenet.messenger",
+    "productName": "Nine Net Messenger",
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "icon": "public/icon-512.png",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis"],
+      "icon": "public/icon-512.png"
+    },
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      ".next/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "protocols": {
+      "name": "Nine Net Messenger",
+      "schemes": ["ninenet-messenger"]
+    }
+  }
+}
