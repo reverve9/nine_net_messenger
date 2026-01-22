@@ -9,6 +9,8 @@ declare global {
       closeWindow: () => void
       minimizeWindow: () => void
       showNotification: (title: string, body: string) => void
+      openPath: (filePath: string) => void
+      selectFile: () => Promise<string | null>
     }
   }
 }
