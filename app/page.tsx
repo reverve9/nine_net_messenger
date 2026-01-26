@@ -115,18 +115,31 @@ export default function MessengerMain() {
   }
 
   useEffect(() => { 
-    checkAuth()
     setIsElectron(!!window.electronAPI?.isElectron)
     
     const handleClick = () => setContextMenu(prev => ({ ...prev, show: false }))
     window.addEventListener('click', handleClick)
     
-    // 로그인 상태 변경 감지
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    let initialized = false
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth event:', event)
+      
+      if (!initialized && (event === 'INITIAL_SESSION' || event === 'SIGNED_IN')) {
+        initialized = true
+        if (session?.user) {
+          setUser(session.user)
+        }
+        setLoading(false)
+        return
+      }
+      
       if (event === 'SIGNED_IN' && session?.user) {
         setUser(session.user)
+        setLoading(false)
       } else if (event === 'SIGNED_OUT') {
         setUser(null)
+        setLoading(false)
       }
     })
     
@@ -220,27 +233,6 @@ export default function MessengerMain() {
     }
   }
 
-  const checkAuth = async () => {
-    try {
-      const { data: { session }, error } = await supabase.auth.getSession()
-      
-      if (error) {
-        console.error('Session error:', error)
-        await supabase.auth.signOut()
-        setUser(null)
-        setLoading(false)
-        return
-      }
-      
-      if (session?.user) { setUser(session.user) }
-    } catch (error) {
-      console.error('Auth error:', error)
-      await supabase.auth.signOut()
-      setUser(null)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const fetchProfile = async () => {
     const { data } = await supabase.from('profiles').select('*').eq('id', user.id).single()
