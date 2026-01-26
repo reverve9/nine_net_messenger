@@ -4,13 +4,15 @@
   "private": true,
   "main": "electron/main.js",
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start -p 3001",
-    "electron:dev": "NODE_ENV=development electron .",
-    "electron:build": "next build && electron-builder",
-    "postinstall": "electron-builder install-app-deps"
-  },
+  "dev": "next dev -p 3001",
+  "build": "next build",
+  "start": "next start -p 3001",
+  "electron:dev": "NODE_ENV=development electron .",
+  "electron:build": "next build && electron-builder",
+  "electron:build:mac": "electron-builder --mac",
+  "electron:build:win": "electron-builder --win",
+  "postinstall": "electron-builder install-app-deps"
+},
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "next": "14.1.0",
