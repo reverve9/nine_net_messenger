@@ -1,23 +1,24 @@
 {
   "name": "nine-net-messenger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "main": "electron/main.js",
   "scripts": {
-  "dev": "next dev -p 3001",
-  "build": "next build",
-  "start": "next start -p 3001",
-  "electron:dev": "NODE_ENV=development electron .",
-  "electron:build": "next build && electron-builder",
-  "electron:build:mac": "electron-builder --mac",
-  "electron:build:win": "electron-builder --win",
-  "postinstall": "electron-builder install-app-deps"
-},
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p 3001",
+    "electron:dev": "NODE_ENV=development electron .",
+    "electron:build": "npm run build && electron-builder",
+    "electron:build:mac": "electron-builder --mac",
+    "electron:build:win": "electron-builder --win",
+    "postinstall": "electron-builder install-app-deps"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
     "next": "14.1.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "electron-updater": "^6.1.7"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -33,24 +34,41 @@
   "build": {
     "appId": "com.ninenet.messenger",
     "productName": "Nine Net Messenger",
-    "mac": {
-      "category": "public.app-category.social-networking",
-      "icon": "public/icon-512.png",
-      "target": ["dmg", "zip"]
-    },
-    "win": {
-      "target": ["nsis"],
-      "icon": "public/icon-512.png"
+    "directories": {
+      "output": "dist"
     },
     "files": [
       "electron/**/*",
-      "public/**/*",
-      ".next/**/*",
-      "node_modules/**/*",
-      "package.json"
+      "out/**/*",
+      "public/**/*"
     ],
-    "directories": {
-      "output": "dist"
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "icon": "public/icon-512.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["universal"]
+        },
+        {
+          "target": "zip",
+          "arch": ["universal"]
+        }
+      ]
+    },
+    "win": {
+      "icon": "public/icon-512.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "reverve9",
+      "repo": "nine_net_messenger"
     },
     "protocols": {
       "name": "Nine Net Messenger",
