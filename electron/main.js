@@ -6,7 +6,7 @@ let chatWindows = new Map();
 let tray;
 
 const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
-const baseUrl = isDev ? 'http://localhost:3001' : 'https://nine-net.vercel.app';
+const baseUrl = isDev ? 'http://localhost:3001' : 'https://nine-net-messenger.vercel.app';
 
 // 단일 인스턴스 보장
 const gotTheLock = app.requestSingleInstanceLock();
