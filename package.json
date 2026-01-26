@@ -1,6 +1,6 @@
 {
   "name": "nine-net-messenger",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "main": "electron/main.js",
   "scripts": {
@@ -39,8 +39,10 @@
     },
     "files": [
       "electron/**/*",
-      "out/**/*",
-      "public/**/*"
+      ".next/**/*",
+      "public/**/*",
+      "node_modules/**/*",
+      "package.json"
     ],
     "mac": {
       "category": "public.app-category.social-networking",
