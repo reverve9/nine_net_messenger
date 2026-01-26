@@ -221,9 +221,25 @@ export default function MessengerMain() {
   }
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (session?.user) { setUser(session.user) }
-    setLoading(false)
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession()
+      
+      if (error) {
+        console.error('Session error:', error)
+        await supabase.auth.signOut()
+        setUser(null)
+        setLoading(false)
+        return
+      }
+      
+      if (session?.user) { setUser(session.user) }
+    } catch (error) {
+      console.error('Auth error:', error)
+      await supabase.auth.signOut()
+      setUser(null)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const fetchProfile = async () => {

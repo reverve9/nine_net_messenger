@@ -52,7 +52,7 @@ function createMainWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      partition: 'persist:ninenet',
+      
     },
     icon: path.join(__dirname, '../public/icon-512.png'),
     title: 'Nine Net Messenger',
@@ -103,7 +103,7 @@ function createChatWindow(roomId, roomName) {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      partition: 'persist:ninenet',
+      
     },
     icon: path.join(__dirname, '../public/icon-512.png'),
     title: roomName || '채팅',
